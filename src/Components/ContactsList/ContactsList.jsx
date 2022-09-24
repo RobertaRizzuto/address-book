@@ -5,7 +5,7 @@ const ContactsList = ({ children }) => {
     <div className={styles.ContactsList}>
       <h3 className={styles.title}>ContactsList</h3>
       <ul className={styles.list}>
-        <li className={styles.item}>{children}</li>
+        {children}
       </ul>
     </div>
   );

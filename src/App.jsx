@@ -13,32 +13,46 @@ function App() {
   ]);
   const [contactName, setContactName] = useState("");
   const [contactSurname, setContactSurname] = useState("");
-  const [contactNumber, setContactNumber] = useState(0);
-  const [contactInfo, setContactInfo] = useState({});
+  const [contactNumber, setContactNumber] = useState("");
 
-  // const onHandleSubmit = (e) => {
-  //     e.preventDefault();
-  //     setContactInfo({
-  //       name: contactName,
-  //       surname: contactSurname,
-  //       number: contactNumber,
-  //     });
-
-  //     setContacts([...contacts, contacts.push(contactInfo)]);
-  //   }
+  const onHandleSubmit = useCallback(
+    (e) => {
+      e.preventDefault();
+      contactName &&
+        contactSurname &&
+        contactNumber &&
+        contacts.push({
+          name: contactName,
+          surname: contactSurname,
+          number: contactNumber,
+        });
+      setContacts([...contacts]);
+      setContactNumber("");
+      setContactSurname("");
+      setContactName("");
+    },
+    [contactNumber, contactName, contactSurname, contacts]
+  );
 
   return (
     <div className={styles.App}>
-      ciao
       <Form
-        // onHandleSubmit={onHandleSubmit}
+        contactName={contactName}
+        contactSurname={contactSurname}
+        contactNumber={contactNumber}
+        onHandleSubmit={onHandleSubmit}
         setContactName={setContactName}
         setContactSurname={setContactSurname}
         setContactNumber={setContactNumber}
       />
       <ContactsList>
-        {contacts.map((el, i) => (
-          <Contact key={i} name={el.name} surname={el.surname} number={el.number} />
+        {contacts?.map((el, i) => (
+          <Contact
+            key={i}
+            name={el.name}
+            surname={el.surname}
+            number={el.number}
+          />
         ))}
       </ContactsList>
     </div>
